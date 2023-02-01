@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  HUSKY: '0' # Don´t run Husky hooks on CI
+  HUSKY: "0" # Don´t run Husky hooks on CI
 jobs:
   build:
     name: Build
@@ -60,6 +60,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: site-build
+          path: ./dist
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -70,18 +71,18 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Cypress run
-        uses: cypress-io/github-action@v3
+        uses: cypress-io/github-action@v5
         with:
           browser: chrome
           start: yarn preview
-          wait-on: 'http://localhost:3000'
+          wait-on: "${{ env.BASE_URL }}"
         env:
-          BASE_URL: http://localhost:3000
+          BASE_URL: http:///127.0.0.13000
 
       - name: Run Lighthouse test
-        uses: treosh/lighthouse-ci-action@v8
+        uses: treosh/lighthouse-ci-action@v9
         with:
-          configPath: './lighthouserc.cjs'
+          configPath: "./lighthouserc.cjs"
           uploadArtifacts: true
   publish:
     needs:
@@ -98,6 +99,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: site-build
+          path: ./dist
 
       - name: Semantic Release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
