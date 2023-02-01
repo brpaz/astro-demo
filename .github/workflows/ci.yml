@@ -75,7 +75,7 @@ jobs:
           BASE_URL: http://localhost:3000
 
       - name: Run Lighthouse test
-        uses: treosh/lighthouse-ci-action@v8
+        uses: treosh/lighthouse-ci-action@v9
         with:
           configPath: "./lighthouserc.cjs"
           uploadArtifacts: true
