@@ -31,6 +31,12 @@ jobs:
           npm pkg delete scripts.prepare # disable husky
           yarn install --frozen-lockfile
 
+      - name: Save node_modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+
       - name: Run astro check
         run: yarn astro check
 
@@ -70,6 +76,13 @@ jobs:
         with:
           name: site-build
           path: ./dist
+
+      - name: Restore node_modules cache
+        id: restore-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
       - name: Install dependencies
         run: |
@@ -120,7 +133,7 @@ jobs:
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           projectName: astro-demo
           directory: ./dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
