@@ -21,7 +21,9 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: |
+          npm pkg delete scripts.prepare # disable husky
+          yarn install --frozen-lockfile
 
       - name: Run astro check
         run: yarn astro check
@@ -63,7 +65,9 @@ jobs:
         run: ls -R
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: |
+          npm pkg delete scripts.prepare # disable husky
+          yarn install --frozen-lockfile
 
       - name: Cypress run
         uses: cypress-io/github-action@v3
@@ -101,8 +105,8 @@ jobs:
         with:
           semantic-verison: 19
           extra_plugins: |
-            @semantic-release/git
-            @semantic-release/github
+            @semantic-release/changelog@^6.0.2
+            @semantic-release/git@^10.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
