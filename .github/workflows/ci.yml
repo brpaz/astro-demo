@@ -6,8 +6,13 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   HUSKY: "0" # Don´t run Husky hooks on CI
+
 jobs:
   build:
     name: Build
@@ -65,7 +70,7 @@ jobs:
           path: ./dist
 
       - name: Display structure of downloaded files
-        run: ls -R
+        run: ls -la ./dist
 
       - name: Install dependencies
         run: |
@@ -79,7 +84,7 @@ jobs:
           start: yarn preview
           wait-on: "${{ env.BASE_URL }}"
         env:
-          BASE_URL: http:///127.0.01:3000
+          BASE_URL: http:///127.0.0.1:3000
 
       - name: Run Lighthouse test
         uses: treosh/lighthouse-ci-action@v9
