@@ -19,6 +19,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: "yarn"
 
       - name: Install dependencies
         run: |
@@ -53,6 +54,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: "yarn"
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,7 +79,7 @@ jobs:
           start: yarn preview
           wait-on: "${{ env.BASE_URL }}"
         env:
-          BASE_URL: http:///127.0.0.13000
+          BASE_URL: http:///127.0.01:3000
 
       - name: Run Lighthouse test
         uses: treosh/lighthouse-ci-action@v9
