@@ -55,6 +55,8 @@ jobs:
       - build
     name: Test
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: http://localhost:3000
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -80,8 +82,6 @@ jobs:
           browser: chrome
           start: yarn preview
           wait-on: "${{ env.BASE_URL }}"
-        env:
-          BASE_URL: http://localhost:3000/
 
       - name: Run Lighthouse test
         uses: treosh/lighthouse-ci-action@v9
@@ -94,7 +94,7 @@ jobs:
     name: Publish to Cloudflare Pages
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       deployments: write
     steps:
       - name: Checkout
@@ -109,7 +109,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: cycjimmy/semantic-release-action@v3
         with:
-          semantic-verison: 19
+          semantic_version: 19
           extra_plugins: |
             @semantic-release/changelog@^6.0.2
             @semantic-release/git@^10.0.1
