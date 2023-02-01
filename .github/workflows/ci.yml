@@ -69,9 +69,6 @@ jobs:
           name: site-build
           path: ./dist
 
-      - name: Display structure of downloaded files
-        run: ls -la ./dist
-
       - name: Install dependencies
         run: |
           npm pkg delete scripts.prepare # disable husky
@@ -84,7 +81,7 @@ jobs:
           start: yarn preview
           wait-on: "${{ env.BASE_URL }}"
         env:
-          BASE_URL: http:///127.0.0.1:3000
+          BASE_URL: http://localhost:3000/
 
       - name: Run Lighthouse test
         uses: treosh/lighthouse-ci-action@v9
