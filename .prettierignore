@@ -1,0 +1,8 @@
+dist
+reports
+.github
+.lighthouseci
+.husky
+node_modules
+public
+README.md
