@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  HUSKY: 0 # Don´t run Husky hooks on CI
+  HUSKY: "0" # Don´t run Husky hooks on CI
 jobs:
   build:
     name: Build
