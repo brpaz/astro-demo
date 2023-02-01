@@ -86,7 +86,7 @@ jobs:
       - name: Run Lighthouse test
         uses: treosh/lighthouse-ci-action@v9
         with:
-          configPath: "./lighthouserc.cjs"
+          configPath: .lighthouserc.cjs
           uploadArtifacts: true
   publish:
     needs:
