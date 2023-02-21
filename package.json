@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
-    "@commitlint/config-conventional": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.4",
     "@lhci/cli": "^0.10.0",
     "@typescript-eslint/parser": "^5.50.0",
     "cypress": "12.5.0",
