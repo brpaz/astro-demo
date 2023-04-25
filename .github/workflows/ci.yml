@@ -97,7 +97,7 @@ jobs:
           wait-on: "${{ env.BASE_URL }}"
 
       - name: Run Lighthouse test
-        uses: treosh/lighthouse-ci-action@v9
+        uses: treosh/lighthouse-ci-action@v10
         with:
           configPath: .lighthouserc.cjs
           uploadArtifacts: true
